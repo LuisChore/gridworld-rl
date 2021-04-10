@@ -84,7 +84,7 @@ def policy_iteration(g,transition_probabilities,rewards,policy):
         for state in g.actions:
             oldVs = V[state]
             old_policy = policy[state]
-            bestVs = float('-inf')
+            best_value = float('-inf')
             best_policy = None
             #argmax_a
             for action in g.actions[state]:
@@ -98,9 +98,9 @@ def policy_iteration(g,transition_probabilities,rewards,policy):
                 # reward deterministic
                 R = rewards.get(s_prime,0)
                 Vs_a = pi * tr_pr * (R + gamma * Vs_prime)
-                if bestVs < Vs_a:
+                if best_value < Vs_a:
                     best_policy = action
-                    bestVs = Vs_a
+                    best_value = Vs_a
 
             policy[state] = best_policy
             if old_policy != best_policy:
