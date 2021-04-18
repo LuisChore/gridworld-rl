@@ -45,7 +45,6 @@ def play_game(g,policy):
 
     s = g.current_state()
     states_rewards = [(s,0)] # 0 reward for being in s_0
-
     # we can limit the number of steps
     limit = 10
     cycle_cost = -10000
