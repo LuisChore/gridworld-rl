@@ -51,14 +51,14 @@ def iterative_policy_evaluation(g,policy,threshold):
             for action in g.actions[state]:
                 # Probability pi, Policy deterministic
                 PI = 1 if policy.get(state) == action else 0
-                # Enviroment deterministic
+                # Environment deterministic
                 s_prime = g.next_state(state,action)
                 transition_probability = 1
                 Vs_prime = V.get(s_prime,0)
                 # Reward deterministic
-                Rs_prime = g.rewards.get(s_prime,0)
+                r = g.rewards.get(s_prime,0)
                 #Bellman Equation
-                Vs += PI * transition_probability * ( Rs_prime + gamma * Vs_prime)
+                Vs += PI * transition_probability * ( r + gamma * Vs_prime)
 
             max_diff = max(max_diff, np.abs(Vs - oldVs))
             V[state] = Vs

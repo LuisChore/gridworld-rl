@@ -1,3 +1,6 @@
+'''
+Policy Evaluation using WindyGridworld (probabilistic environment)
+'''
 from WindyGridworld import WindyGridworld,get_windygridworld
 import numpy as np
 
@@ -42,7 +45,7 @@ def iterative_policy_evaluation(g,policy,threshold):
     for state in policy:
         V[state] = 0
 
-    #get transitions and rewards from enviroment
+    #get transitions and rewards from environment
     transition_probability = {}
     reward = {}
     for (state,action),v in g.transition_probabilities.items():
@@ -61,9 +64,9 @@ def iterative_policy_evaluation(g,policy,threshold):
                 #Visit all States
                 for s_prime in g.get_all_states():
                     prob = transition_probability.get((s_prime,state,action),0)
-                    rew = reward.get(s_prime,0) #deterministic
+                    r = reward.get(s_prime,0) #deterministic
                     Vs_prime = V.get(s_prime,0)
-                    Vs += PI * prob * (rew + gamma * Vs_prime)
+                    Vs += PI * prob * (r + gamma * Vs_prime)
             max_diff = max(max_diff,np.abs(Vs-oldVs))
             V[state] = Vs
         if max_diff < threshold:
