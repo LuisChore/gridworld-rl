@@ -9,7 +9,7 @@ class WindyGridworld():
         self.r = [-1,0,1,0] #U,R,D,L
         self.c = [0,1,0,-1]
 
-    def current_state(self,actions):
+    def current_state(self):
         return self.I,self.J
 
     def get_all_states(self):
@@ -34,7 +34,7 @@ class WindyGridworld():
         return self.rewards.get((self.I,self.J),0)
 
     def game_over(self):
-        return (self.I,self.J) in terminal_states
+        return (self.I,self.J) in self.terminal_states
 
 
 def get_windygridworld():

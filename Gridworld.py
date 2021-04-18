@@ -8,9 +8,10 @@ class Gridworld():
         self.r = [-1,0,1,0] #U,R,D,L
         self.c = [0,1,0,-1]
 
-    def current_state(self,actions):
+    def current_state(self):
         return self.I,self.J
 
+    #dynamic programming purpose
     def next_state(self,state,action):
         I,J = state
         I = I + self.r[action]
@@ -23,13 +24,17 @@ class Gridworld():
         self.terminal_states = terminal_states
         self.actions = actions
 
+    #testing purpose
+    def set_state(self,state):
+        self.I,self.J = state
+
     def move(self,action):
         self.I = self.I + self.r[action]
         self.J = self.J + self.c[action]
         return self.rewards.get((self.I,self.J),0)
 
     def game_over(self):
-        return (self.I,self.J) in terminal_states
+        return (self.I,self.J) in self.terminal_states
 
 def get_gridworld():
     n = 3
