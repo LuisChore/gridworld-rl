@@ -81,7 +81,7 @@ def policy_iteration(g,transition_probabilities,rewards,policy):
         for state in g.actions:
             oldVs = V[state]
             old_policy = policy[state]
-            best_value = float('-inf')
+            best_value = float('-inf') #diffetent from V(s)
             best_policy = None
             #argmax_a V
             for action in g.actions[state]:
@@ -100,7 +100,6 @@ def policy_iteration(g,transition_probabilities,rewards,policy):
                     best_policy = action
                     best_value = Vs_a
 
-
             policy[state] = best_policy
             if old_policy != best_policy:
                 policy_stable = False
@@ -116,9 +115,9 @@ if __name__ == '__main__':
     | c | x | c |-1 |
     | S | c | c | c |
     '''
-    g = get_penalized_windygridworld(-0.2)
+    g = get_penalized_windygridworld()
     transition_probabilities, rewards = get_transitionprobs_reward(g)
-    #deterministic policy (RANDOM)
+    #deterministic policy (RANDOM initialized)
     policy = {}
     for state in g.actions:
         policy[state] = np.random.choice(g.actions[state])
