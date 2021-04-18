@@ -37,6 +37,7 @@ def get_transitionprobs_reward(g):
     for state in g.actions:
         for action in g.actions[state]:
             s_prime = g.next_state(state,action)
+            # envvironment deterministic
             probabities[(s_prime,state,action)] = 1
             rewards[s_prime] = g.rewards.get(s_prime,0)
 
@@ -54,13 +55,13 @@ def policy_evaluation(g,policy,threshold,probabities,rewards,V):
             for action in g.actions[state]:
                 #pi, policy deterministic
                 pi = 1 if policy.get(state) == action else 0
-                # enviroment deterministic
+                # environment deterministic
                 s_prime = g.next_state(state,action)
                 tr_pr = probabities.get((s_prime,state,action),0)
                 Vs_prime = V.get(s_prime,0)
                 # reward deterministic
-                R = rewards.get(s_prime,0)
-                Vs += pi * tr_pr * (R + gamma * Vs_prime)
+                r = rewards.get(s_prime,0)
+                Vs += pi * tr_pr * (r + gamma * Vs_prime)
             V[state] = Vs
             max_diff = max(max_diff,np.abs(Vs - oldVs))
         if max_diff < threshold:
@@ -90,7 +91,7 @@ def policy_iteration(g,transition_probabilities,rewards,policy):
             for action in g.actions[state]:
                 # don't use PI(s|a)
                 Vs_a = 0
-                # enviroment deterministic
+                # environment deterministic
                 s_prime = g.next_state(state,action)
                 tr_pr = transition_probabilities.get((s_prime,state,action),0)
                 Vs_prime = V.get(s_prime,0)
