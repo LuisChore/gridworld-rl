@@ -61,3 +61,31 @@ def get_gridworld():
     g = Gridworld(n,m,start_position)
     g.set(rewards,walls,terminal_states,actions)
     return g
+
+#wall cell is a lost terminal state
+def get_gridworld2():
+    n = 3
+    m = 4
+    start_position = (2,0)
+    terminal_states = ((0,3),(1,3),(1,1))
+    walls = ((1,1))
+    rewards = {
+        (0,3): 1,
+        (1,3): -1,
+        (1,1): -100
+    }
+    #going to the wall is a valid action
+    actions = {
+        (0,0):(1,2),
+        (0,1):(1,2,3),
+        (0,2):(1,2,3),
+        (1,0):(0,1,2),
+        (1,2):(0,1,2,3),
+        (2,0):(0,1),
+        (2,1):(0,1,3),
+        (2,2):(0,1,3),
+        (2,3):(0,3),
+    }
+    g = Gridworld(n,m,start_position)
+    g.set(rewards,walls,terminal_states,actions)
+    return g
