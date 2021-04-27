@@ -18,6 +18,9 @@ class Gridworld():
         J = J + self.c[action]
         return (I,J)
 
+    def get_all_states(self):
+        return set(self.actions.keys()) | set(self.rewards.keys())
+
     def set(self,rewards,walls,terminal_states,actions):
         self.rewards = rewards
         self.walls = walls
