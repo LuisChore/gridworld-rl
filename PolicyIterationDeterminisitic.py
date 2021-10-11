@@ -32,19 +32,19 @@ def print_value(V,g):
 
 
 def get_transitionprobs_reward(g):
-    probabities = {}
+    probabilities = {}
     rewards = {}
     for state in g.actions:
         for action in g.actions[state]:
             s_prime = g.next_state(state,action)
             # envvironment deterministic
-            probabities[(s_prime,state,action)] = 1
+            probabilities[(s_prime,state,action)] = 1
             rewards[s_prime] = g.rewards.get(s_prime,0)
 
-    return probabities,rewards
+    return probabilities,rewards
 
-
-def policy_evaluation(g,policy,threshold,probabities,rewards,V):
+#it recieves an already initialized V for a faster convergence
+def policy_evaluation(g,policy,threshold,probabilities,rewards,V):
     gamma = 0.9
 
     while True:
@@ -57,7 +57,7 @@ def policy_evaluation(g,policy,threshold,probabities,rewards,V):
                 pi = 1 if policy.get(state) == action else 0
                 # environment deterministic
                 s_prime = g.next_state(state,action)
-                tr_pr = probabities.get((s_prime,state,action),0)
+                tr_pr = probabilities.get((s_prime,state,action),0)
                 Vs_prime = V.get(s_prime,0)
                 # reward deterministic
                 r = rewards.get(s_prime,0)

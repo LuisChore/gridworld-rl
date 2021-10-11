@@ -1,6 +1,6 @@
 '''
 Environment: Windy World
-Method: Value iteration (Optimal Bellman Equation as an update rule)
+Method: Value iteration (Bellman Optimality Equation as an update rule)
 '''
 
 from WindyGridworld import WindyGridworld,get_penalized_windygridworld,get_windygridworld

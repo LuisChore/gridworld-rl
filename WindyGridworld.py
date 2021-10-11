@@ -22,6 +22,7 @@ class WindyGridworld():
         self.actions = actions
         self.transition_probabilities = transition_probabilities
 
+    #function to move in a windy gridworld
     def move(self,action):
         state = (self.I,self.J)
         probs = self.transition_probabilities.get((state,action))
