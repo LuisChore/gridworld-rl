@@ -15,13 +15,11 @@ import numpy as np
 ###### UTIL FUNCTIONS #############
 def max_dict(D):
     #return the key and value with the max value
-    max_value = float('-inf')
-    max_key = None
-    for k,v in D.items():
-        if v > max_value:
-            max_key = k
-            max_value = v
-    return max_key,max_value
+    #if more than one key has the max value, this
+    #is choosen randomly
+    max_value = max(D.values())
+    max_keys = [key for key,val in D.items() if val == max_value]
+    return np.random.choice(max_keys),max_value
 
 ###### VISUALIZATION FUNCTIONS #####
 def get_action_value(pi):
@@ -121,6 +119,8 @@ if __name__ == '__main__':
 
 
     Q = {}
+    #we can avoid having the returns if we save the number of times
+    #a pair (s,a) is visited, and compute the average with that
     returns = {}
     #initialize Q values
     #initialize returns, to compute the mean
@@ -147,6 +147,7 @@ if __name__ == '__main__':
                 states_seen.add(sa)
                 max_diff = max(max_diff,np.abs(old_Qsa-Q[s][a]))
         #Policy Improvement argmax[a] Q(s,a)
+        #It could also be updated after each Q update
         for state in g.actions:
             policy[state] = max_dict(Q[state])[0]
 
