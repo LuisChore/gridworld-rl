@@ -103,9 +103,9 @@ if __name__ == '__main__':
         returns[state] = []
 
     ## FIRST SEEN Monte Carlo EVALUATION
-    states_seen = set()
     iterations = 100
     for it in range(iterations):
+        states_seen = set()
         states_returns = play_game(g,policy)
         for s,G in states_returns:
             if s not in states_seen:
